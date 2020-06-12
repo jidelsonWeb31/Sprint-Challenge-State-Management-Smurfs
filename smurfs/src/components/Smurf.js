@@ -1,10 +1,11 @@
 import React from 'react';
+import {SmurfContext} from '../components/SmurfContext';
 
-const Smurf = ({name}) => {
+const Smurf = () => {
     return(
-        <div>
-            <h2>{name}</h2>
-        </div>
+        <SmurfContext.Consumer>
+        {value => <div>{value}</div>}
+    </SmurfContext.Consumer>
     )
 }
 

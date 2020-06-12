@@ -3,7 +3,7 @@ import Smurf from './Smurf';
 import { SmurfContext } from './SmurfContext';
 
 const SmurfList = () => {
-    const [smurfs, setSmurfs] = useContext(SmurfContext);
+    const [smurfs, setSmurfs] = useState([]);
 
     return(
         <div>
@@ -17,4 +17,4 @@ const SmurfList = () => {
     )
 }
 
-export default SmurfList;
+export default SmurfList
