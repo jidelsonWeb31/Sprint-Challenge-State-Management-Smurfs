@@ -9,11 +9,13 @@ import SmurfList from './SmurfList';
 class App extends Component {
   render() {
     return (
+      <SmurfProvider>
       <div className="App">
        
        <AddSmurf />
        <SmurfList />
       </div>
+      </SmurfProvider>
     );
   }
 }

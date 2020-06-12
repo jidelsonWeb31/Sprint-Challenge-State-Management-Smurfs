@@ -6,18 +6,9 @@ export const SmurfContext = createContext();
 export const SmurfProvider = props => {
     const [smurfs, setSmurfs] = useState([]);
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:3333/smurfs')
-    //     .then(res => {
-    //         setSmurfs(res.data.name)
-    //         console.log(res.data.name)
-    //     })
-    //     .catch(err => {
-    //         console.log('You have an error')
-    //     })
-    // },[])
 
-    const getSmurfs = () => {
+// GET REQUEST
+    const getSmurf = () => {
         axios.get('http://localhost:3333/smurfs')
         .then(function(res) {
           console.log(res);
@@ -29,15 +20,33 @@ export const SmurfProvider = props => {
       }
     
       useEffect(() =>{
-        getSmurfs()
+        getSmurf()
         }, [])
+
+
+
+// POST REQUEST
+        const postSmurf = aSmurf => {
+            axios.post('http://localhost:3333/smurfs', aSmurf)
+              .then(res => {
+                setSmurfs([res.data, ...smurfs])
+                  console.log(res)
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          } 
+        
+          useEffect(() =>{
+          postSmurf()
+          }, [])
 
 
         
 
     return(
         <SmurfContext.SmurfProvider value={[smurfs, setSmurfs]}>
-        {props.children}
+            {props.children}
         </SmurfContext.SmurfProvider>
     );
 

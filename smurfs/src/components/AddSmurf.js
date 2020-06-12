@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { SmurfContext } from './SmurfContext';
-// import axios from 'axios';
+
 
 const AddSmurf = () => {
     const [name, setName] = useState('');
@@ -16,20 +16,6 @@ const AddSmurf = () => {
     };
 
 
-    // const getSmurfs = () => {
-    //     axios.get('http://localhost:3333/smurfs')
-    //     .then(function(res) {
-    //       console.log(res);
-    //       setSmurfs([...smurfs, res.data])
-    //     })
-    //     .catch(function(err) {
-    //       console.log(err)
-    //     })
-    //   }
-    
-    //   useEffect(() =>{
-    //     getSmurfs()
-    //     }, [])
     return(
         <div>
         <form onSubmit = {addSmurf}>
