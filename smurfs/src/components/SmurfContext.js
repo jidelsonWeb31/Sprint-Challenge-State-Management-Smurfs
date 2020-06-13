@@ -1,4 +1,3 @@
-import React, { useState, useEffect, createContext } from 'react';
-import axios from 'axios';
+import React, {createContext } from 'react';
 
-export const SmurfContext = createContext();
+export const SmurfContext = createContext(null);

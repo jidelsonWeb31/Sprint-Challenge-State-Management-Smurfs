@@ -1,6 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useReducer } from 'react';
 import { SmurfContext } from './SmurfContext';
 import axios from 'axios';
+
 
 
 const AddSmurf = () => {
@@ -9,16 +10,20 @@ const AddSmurf = () => {
 
     const user = useContext(SmurfContext)
 
-    const updateName = e => {
-        setName(e.target.value)
+    const onInputChange = e => {
+       const name = e.target.name
+       const value = e.target.value
     };
 
     const addSmurf = e => {
         e.preventDefault()
-    setSmurfs(prevSmurfs => [...prevSmurfs, {name:name}])
+    setSmurfs(prevSmurfs => [...prevSmurfs, {smurfs: smurfs}])
     };
 
-    // POST REQUEST
+
+ 
+
+    //POST REQUEST
     const postSmurf = aSmurf => {
         axios.post('http://localhost:3333/smurfs', aSmurf)
           .then(res => {
@@ -38,15 +43,37 @@ const AddSmurf = () => {
 
     return(
         <div>
-        <form onSubmit = {addSmurf}>
+        <form>
+
+            <div>
+            <label>Name:&nbsp;</label>
             <input
             type="text"
             name="name"
-            value={name}
-            onChange={updateName}
+            onChange={onInputChange}
+            
             />
+            </div>
 
-            <button>Submit</button>
+            <div>
+                <label>Age: &nbsp;</label>
+                <input 
+                type="text"
+                name="age"
+                onChange={onInputChange}
+                /> 
+            </div>
+
+            <div>
+                <label>Height: &nbsp;</label>
+                <input
+                type="text"
+                name="height"
+                onChange={onInputChange}
+                />
+            </div>
+            
+            <button onClick={addSmurf}>Submit</button>
 
         </form>
         </div>

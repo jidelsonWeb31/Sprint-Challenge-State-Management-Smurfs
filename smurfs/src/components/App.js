@@ -1,14 +1,16 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useContext } from "react";
 import "./App.css";
-
 import AddSmurf from './AddSmurf';
-import { SmurfProvider } from './SmurfContext';
 import SmurfList from './SmurfList';
 import {SmurfContext} from './SmurfContext';
 import axios from 'axios';
 
+
+
  function App () {
   const [smurfs, setSmurfs] = useState([]);
+  const user = useContext(SmurfContext);
+
 
   // GET REQUEST
   const getSmurf = () => {
