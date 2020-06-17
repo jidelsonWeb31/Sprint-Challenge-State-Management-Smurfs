@@ -5,19 +5,24 @@ import SmurfList from './SmurfList';
 import {SmurfContext} from './SmurfContext';
 import axios from 'axios';
 
-
+const initialFormValues = {
+  name:'',
+  age: '',
+  height:''
+}
 
  function App () {
   const [smurfs, setSmurfs] = useState([]);
-  const user = useContext(SmurfContext);
+  
+
+  // const myData = useContext(SmurfContext);
 
 
-  // GET REQUEST
   const getSmurf = () => {
     axios.get('http://localhost:3333/smurfs')
     .then(function(res) {
       console.log(res);
-      setSmurfs([...smurfs, res.data.name])
+      setSmurfs(res.data)
     })
     .catch(function(err) {
       console.log(err)
@@ -28,11 +33,26 @@ import axios from 'axios';
     getSmurf()
     }, [])
 
-    
-
+    //POST REQUEST
+    const postSmurf = aSmurf => {
+      axios.post('http://localhost:3333/smurfs', aSmurf)
+        .then(res => {
+          setSmurfs(res.data)
+            console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    } 
   
+    useEffect(() =>{
+    postSmurf()
+    }, [])
+
+
+ 
     return (
-      <SmurfContext.Provider value={[smurfs]}>
+      <SmurfContext.Provider value={{smurfs, postSmurf, setSmurfs}}>
       <div className="App">
        <AddSmurf />
        <SmurfList />

@@ -2,48 +2,50 @@ import React, { useState, useContext, useEffect, useReducer } from 'react';
 import { SmurfContext } from './SmurfContext';
 import axios from 'axios';
 
-
+const initialFormValues = {
+  name:'',
+  age: '',
+  height:''
+}
 
 const AddSmurf = () => {
-    const [name, setName] = useState('');
-    const [smurfs, setSmurfs] = useState([]);
+   
+  // const [smurfs, setSmurfs] = useState([]);
+    const [formValues, setFormValues] = useState(initialFormValues);
 
-    const user = useContext(SmurfContext)
+    const {smurfs, postSmurf, setSmurfs} = useContext(SmurfContext);
 
     const onInputChange = e => {
-       const name = e.target.name
-       const value = e.target.value
-    };
+      const name = e.target.name
+      const value = e.target.value
 
-    const addSmurf = e => {
-        e.preventDefault()
-    setSmurfs(prevSmurfs => [...prevSmurfs, {smurfs: smurfs}])
-    };
+      setFormValues({...formValues, [name]:value})
+   };
+
+   const addSmurf = e => {
+       e.preventDefault()
+     const newSmurf = {
+       name: formValues.name,
+       age: formValues.age,
+       height: formValues.height 
+     }
+     // setSmurfs(prevSmurfs => [...prevSmurfs, {smurfs: smurfs}])
+     postSmurf(newSmurf)
+     setFormValues(initialFormValues)
+     setSmurfs([...smurfs, newSmurf])   
+   };
 
 
- 
-
-    //POST REQUEST
-    const postSmurf = aSmurf => {
-        axios.post('http://localhost:3333/smurfs', aSmurf)
-          .then(res => {
-            setSmurfs([res.data, ...smurfs])
-              console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-      } 
+   
     
-      useEffect(() =>{
-      postSmurf()
-      }, [])
+        
+
 
 
 
     return(
         <div>
-        <form>
+        <form onSubmit={addSmurf}>
 
             <div>
             <label>Name:&nbsp;</label>
@@ -51,7 +53,7 @@ const AddSmurf = () => {
             type="text"
             name="name"
             onChange={onInputChange}
-            
+            value={formValues.name}
             />
             </div>
 
@@ -61,6 +63,7 @@ const AddSmurf = () => {
                 type="text"
                 name="age"
                 onChange={onInputChange}
+                value={formValues.age}
                 /> 
             </div>
 
@@ -70,6 +73,7 @@ const AddSmurf = () => {
                 type="text"
                 name="height"
                 onChange={onInputChange}
+                value= {formValues.height}
                 />
             </div>
             
